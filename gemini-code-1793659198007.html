@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granizados MINELLY - Sistema Web</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            padding: 15px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #d32f2f, #f57c00);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .panel {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 320px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .categoria-titulo {
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            margin: 6px 0 3px 0;
+            text-transform: uppercase;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .options-group {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+        }
+
+        .options-group label {
+            background: #eef2f5;
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .options-group input {
+            margin-right: 4px;
+        }
+
+        .row-totales {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .total-box {
+            flex: 1;
+            background: #e8f8f5;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #117a65;
+            text-align: center;
+        }
+
+        .vuelto-box {
+            flex: 1;
+            background: #ebf5fb;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2980b9;
+            text-align: center;
+        }
+
+        .ganancias-card {
+            background: #eafaf1;
+            border: 2px dashed #27ae60;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ganancias-monto {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #219150;
+        }
+
+        .btn-reset {
+            background: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .pedido-card {
+            background: #fff8e7;
+            border-left: 5px solid #f39c12;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .orden-numero {
+            background: #f39c12;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+
+        .cliente-nombre {
+            font-size: 16px;
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        .pedido-detalles {
+            font-size: 12px;
+            color: #555;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        .hora-pedido {
+            color: #888;
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .acciones-pedido {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .btn-entregar {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .btn-entregar:hover {
+            background: #c0392b;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .btn-whatsapp:hover {
+            background: #1ebc57;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🍧 GRANIZADOS MINELLY</h1>
+    </header>
+
+    <div class="container">
+        <!-- Panel de Registro de Pedido -->
+        <div class="panel">
+            <h2>Nuevo Pedido</h2>
+            <form id="pedidoForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Cliente:</label>
+                    <input type="text" id="nombre" placeholder="Ej: Carlos" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="tamano">Tamaño del Vaso:</label>
+                    <select id="tamano" onchange="calcularTotal()">
+                        <option value="0.50">Pequeño - $0.50</option>
+                        <option value="1.00" selected>Grande - $1.00</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Sabores (Elegir hasta 4):</label>
+                    
+                    <div class="categoria-titulo">🍋 Cítricos</div>
+                    <div class="options-group">
+                        <label><input type="checkbox" value="Limón" class="sabor"> Limón</label>
+                        <label><input type="checkbox" value="Maracuyá" class="sabor"> Maracuyá</label>
+                        <label><input type="checkbox" value="Tamarindo" class="sabor"> Tamarindo</label>
+                        <label><input type="checkbox" value="Naranjilla" class="sabor"> Naranjilla</label>
+                        <label><input type="checkbox" value="Piña" class="sabor"> Piña</label>
+                        <label><input type="checkbox" value="Naranja" class="sabor"> Naranja</label>
+                    </div>
+
+                    <div class="categoria-titulo">🍓 Frutales</div>
+                    <div class="options-group">
+                        <label><input type="checkbox" value="Fresas" class="sabor"> Fresas</label>
+                        <label><input type="checkbox" value="Mora" class="sabor"> Mora</label>
+                        <label><input type="checkbox" value="Uva" class="sabor"> Uva</label>
+                        <label><input type="checkbox" value="Mango" class="sabor"> Mango</label>
+                        <label><input type="checkbox" value="Guanábana" class="sabor"> Guanábana</label>
+                        <label><input type="checkbox" value="Café" class="sabor"> Café</label>
+                        <label><input type="checkbox" value="Rompasa" class="sabor"> Rompasa</label>
+                    </div>
+
+                    <div class="categoria-titulo">❤️ Tradicionales</div>
+                    <div class="options-group">
+                        <label><input type="checkbox" value="Crema de Leche" class="sabor"> Crema de Leche</label>
+                        <label><input type="checkbox" value="Chocolate" class="sabor"> Chocolate</label>
+                        <label><input type="checkbox" value="Rosa" class="sabor"> Rosa</label>
+                        <label><input type="checkbox" value="Menta" class="sabor"> Menta</label>
+                        <label><input type="checkbox" value="Chicle" class="sabor"> Chicle</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Toppings (Incluidos):</label>
+                    <div class="options-group">
+                        <label><input type="checkbox" value="Leche Condensada" class="topping"> Leche Condensada</label>
+                        <label><input type="checkbox" value="Gomitas" class="topping"> Gomitas</label>
+                        <label><input type="checkbox" value="Chispeados" class="topping"> Chispeados</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pagoCliente">Paga con ($):</label>
+                    <input type="number" id="pagoCliente" step="0.01" placeholder="Ej: 5.00" oninput="calcularVuelto()">
+                </div>
+
+                <div class="row-totales">
+                    <div class="total-box">
+                        Total: $<span id="totalPagar">1.00</span>
+                    </div>
+                    <div class="vuelto-box">
+                        Vuelto: $<span id="vueltoCliente">0.00</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">🛒 Registrar Pedido</button>
+            </form>
+        </div>
+
+        <!-- Panel de Pedidos en Cola y Ganancias -->
+        <div class="panel">
+            <div class="ganancias-card">
+                <div>
+                    <div style="font-size: 12px; color: #555; font-weight: bold;">Caja / Ganancias del Día</div>
+                    <div class="ganancias-monto">$<span id="gananciasDia">0.00</span></div>
+                    <div style="font-size: 11px; color: #777;"><span id="totalVendidos">0</span> granizados vendidos</div>
+                </div>
+                <button class="btn-reset" onclick="reiniciarCaja()">Reiniciar Caja</button>
+            </div>
+
+            <h2>Pedidos por Entregar</h2>
+            <div id="listaPedidos">
+                <p style="color: #777; font-size: 13px;">Cargando pedidos de la nube...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Módulos de Firebase para conectar a la Nube -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Configuración de tu Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPFKZ5l1QQs1Fot_i3N8niyzVj1jnahCU",
+            authDomain: "granizados-minelly.firebaseapp.com",
+            projectId: "granizados-minelly",
+            storageBucket: "granizados-minelly.firebasestorage.app",
+            messagingSenderId: "344503057848",
+            appId: "1:344503057848:web:1e92d1310bcaca6ccca34d",
+            measurementId: "G-E6CRBEDQ3X"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const NUMERO_WHATSAPP = "593939703790";
+        let totalGlobal = 1.00;
+        let contadorOrden = 1;
+        let listaPedidosArray = [];
+
+        window.calcularTotal = function() {
+            let precioBase = parseFloat(document.getElementById('tamano').value);
+            totalGlobal = precioBase;
+            document.getElementById('totalPagar').innerText = totalGlobal.toFixed(2);
+            window.calcularVuelto();
+        };
+
+        window.calcularVuelto = function() {
+            let pago = parseFloat(document.getElementById('pagoCliente').value) || 0;
+            let vuelto = pago - totalGlobal;
+            document.getElementById('vueltoCliente').innerText = vuelto > 0 ? vuelto.toFixed(2) : "0.00";
+        };
+
+        const pedidoForm = document.getElementById('pedidoForm');
+        const listaPedidos = document.getElementById('listaPedidos');
+
+        window.calcularTotal();
+
+        // Guardar nuevo pedido en la Nube
+        pedidoForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            let nombre = document.getElementById('nombre').value;
+            let tamanoTexto = document.getElementById('tamano').options[document.getElementById('tamano').selectedIndex].text.split(' - ')[0];
+            
+            let saboresChecked = document.querySelectorAll('.sabor:checked');
+            let sabores = Array.from(saboresChecked).map(s => s.value);
+            if(sabores.length === 0) sabores.push("Sin sabor especificado");
+
+            let toppingsChecked = document.querySelectorAll('.topping:checked');
+            let toppings = Array.from(toppingsChecked).map(t => t.value);
+
+            let ahora = new Date();
+            let horaFormateada = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+            let numOrdenActual = contadorOrden++;
+
+            let pedido = {
+                numeroOrden: numOrdenActual,
+                hora: horaFormateada,
+                nombre: nombre,
+                tamano: tamanoTexto,
+                sabores: sabores.join(', '),
+                toppings: toppings.length > 0 ? toppings.join(', ') : 'Ninguno',
+                total: totalGlobal,
+                creadoEn: Date.now()
+            };
+
+            try {
+                // Guardar en colección 'pedidos' de Firestore
+                await addDoc(collection(db, "pedidos"), pedido);
+
+                // Actualizar Caja Global en Firestore
+                const cajaRef = doc(db, "caja", "diaria");
+                const cajaSnap = await getDoc(cajaRef);
+                let actualGanancias = 0;
+                let actualVendidos = 0;
+
+                if (cajaSnap.exists()) {
+                    actualGanancias = cajaSnap.data().ganancias || 0;
+                    actualVendidos = cajaSnap.data().vendidos || 0;
+                }
+
+                await setDoc(cajaRef, {
+                    ganancias: actualGanancias + totalGlobal,
+                    vendidos: actualVendidos + 1,
+                    ultimoOrden: contadorOrden
+                });
+
+            } catch (error) {
+                console.error("Error guardando pedido: ", error);
+            }
+
+            // Resetear entradas del formulario
+            document.getElementById('nombre').value = '';
+            document.getElementById('pagoCliente').value = '';
+            document.querySelectorAll('.sabor:checked, .topping:checked').forEach(cb => cb.checked = false);
+            
+            window.calcularTotal();
+            document.getElementById('nombre').focus();
+        });
+
+        // Escuchar Pedidos en Tiempo Real desde la Nube
+        onSnapshot(collection(db, "pedidos"), (snapshot) => {
+            listaPedidosArray = [];
+            snapshot.forEach(docSnap => {
+                listaPedidosArray.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            
+            // Ordenar por hora/creación
+            listaPedidosArray.sort((a, b) => a.creadoEn - b.creadoEn);
+            renderPedidos();
+        });
+
+        // Escuchar Caja en Tiempo Real desde la Nube
+        onSnapshot(doc(db, "caja", "diaria"), (docSnap) => {
+            if (docSnap.exists()) {
+                let data = docSnap.data();
+                document.getElementById('gananciasDia').innerText = (data.ganancias || 0).toFixed(2);
+                document.getElementById('totalVendidos').innerText = data.vendidos || 0;
+                contadorOrden = data.ultimoOrden || (listaPedidosArray.length + 1);
+            }
+        });
+
+        function renderPedidos() {
+            if (listaPedidosArray.length === 0) {
+                listaPedidos.innerHTML = '<p style="color: #777; font-size: 13px;">No hay pedidos pendientes por el momento.</p>';
+                return;
+            }
+
+            listaPedidos.innerHTML = '';
+            listaPedidosArray.forEach(pedido => {
+                let div = document.createElement('div');
+                div.className = 'pedido-card';
+                div.innerHTML = `
+                    <div>
+                        <span class="orden-numero">Orden #${pedido.numeroOrden}</span>
+                        <div class="cliente-nombre">👤 ${pedido.nombre} <span class="hora-pedido">(${pedido.hora})</span></div>
+                        <div class="pedido-detalles">
+                            <strong>Tamaño:</strong> ${pedido.tamano}<br>
+                            <strong>Sabores:</strong> ${pedido.sabores}<br>
+                            <strong>Toppings:</strong> ${pedido.toppings}<br>
+                            <strong>Total:</strong> $${pedido.total.toFixed(2)}
+                        </div>
+                    </div>
+                    <div class="acciones-pedido">
+                        <button class="btn-whatsapp" onclick="enviarWhatsAppEspecifico('${pedido.id}')">📲 WhatsApp</button>
+                        <button class="btn-entregar" onclick="entregarPedido('${pedido.id}')">🔔 Entregar</button>
+                    </div>
+                `;
+                listaPedidos.appendChild(div);
+            });
+        }
+
+        window.enviarWhatsAppEspecifico = function(id) {
+            let pedido = listaPedidosArray.find(p => p.id === id);
+            if (!pedido) return;
+
+            let mensaje = `🍧 *PEDIDO - GRANIZADOS MINELLY*\n` +
+                          `----------------------------------\n` +
+                          `👤 *Cliente:* ${pedido.nombre}\n` +
+                          `🥤 *Tamaño:* ${pedido.tamano}\n` +
+                          `🎨 *Sabores:* ${pedido.sabores}\n` +
+                          `🍬 *Toppings:* ${pedido.toppings}\n` +
+                          `💵 *Total:* $${pedido.total.toFixed(2)}\n` +
+                          `----------------------------------\n` +
+                          `🕒 *Orden #${pedido.numeroOrden} - ${pedido.hora}*`;
+
+            let url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        };
+
+        window.entregarPedido = async function(id) {
+            try {
+                await deleteDoc(doc(db, "pedidos", id));
+            } catch (error) {
+                console.error("Error al eliminar pedido: ", error);
+            }
+        };
+
+        window.reiniciarCaja = async function() {
+            if (confirm("¿Deseas reiniciar la caja del día a $0.00?")) {
+                try {
+                    await setDoc(doc(db, "caja", "diaria"), {
+                        ganancias: 0,
+                        vendidos: 0,
+                        ultimoOrden: 1
+                    });
+                    contadorOrden = 1;
+                } catch (error) {
+                    console.error("Error al reiniciar caja: ", error);
+                }
+            }
+        };
+    </script>
+</body>
+</html>
